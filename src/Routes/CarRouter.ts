@@ -18,4 +18,9 @@ CarRouter.post(
   (req, res, next) => new CarController(req, res, next).register(),
 );
 
+CarRouter.put(
+  '/:id',
+  (req, res, next) => new CarController(req, res, next).update(),
+);
+
 export default CarRouter;
