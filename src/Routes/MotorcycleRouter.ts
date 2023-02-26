@@ -23,4 +23,9 @@ MotorcycleRouter.put(
   (req, res, next) => new MotorcycleController(req, res, next).update(),
 );
 
+MotorcycleRouter.delete(
+  '/:id',
+  (req, res, next) => new MotorcycleController(req, res, next).remove(),
+);
+
 export default MotorcycleRouter;
