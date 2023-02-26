@@ -15,9 +15,7 @@ class CarService {
 
   private async findById(id: string) {
     const car = await this.carODM.findById(id);
-
     if (!car) throw new HttpException(404, 'Car not found');
-
     return car;
   }
 
@@ -28,11 +26,7 @@ class CarService {
 
   public async update(id: string, car: ICar) {
     await this.carODM.update(id, car);
-
     const updatedCar = await this.findById(id);
-
-    if (!updatedCar) throw new HttpException(404, 'Car not found');
-
     return this.createCarDomain(updatedCar);
   }
 
