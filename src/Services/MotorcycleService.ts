@@ -30,6 +30,11 @@ class MotorcycleService {
     return this.createMotorcycleDomain(updatedMotorcycle);
   }
 
+  public async remove(id: string) {
+    await this.findById(id);
+    await this.motorcycleODM.delete(id);
+  }
+
   public async getAll() {
     const motorcycles = await this.motorcycleODM.find();
     const motorcyclesArray = motorcycles.map((motorcycle) =>
