@@ -52,4 +52,20 @@ describe('Para o service Car', function () {
       sinon.restore();
     });  
   });
+
+  describe('Para o método update', function () {
+    it('Deve retornar o carro atualizado', async function () {
+      sinon.stub(Model, 'findById').resolves(validCar);
+      sinon.stub(Model, 'findByIdAndUpdate').resolves(validCar);
+
+      const carOutput = new Car(validCar);
+
+      const service = new CarService();
+      const result = await service.update(validId, validCarBody);
+
+      expect(result).to.be.deep.equal(carOutput);
+
+      sinon.restore();
+    });  
+  });
 });
