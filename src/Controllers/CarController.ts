@@ -55,6 +55,16 @@ class CarController {
     }
   }
 
+  public async remove() {
+    const { id } = this.req.params;
+    try {
+      await this.service.remove(id);
+      return this.res.sendStatus(204);
+    } catch (error) {
+      this.next(error);
+    }
+  }
+
   public async getAll() {
     try {
       const cars = await this.service.getAll();
