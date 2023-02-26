@@ -14,12 +14,12 @@ describe('Para o service Motorcycle', function () {
     it('Deve retornar a moto registrada', async function () {
       sinon.stub(Model, 'create').resolves(validMotorcycle);
 
-      const carOutput = new Motorcycle(validMotorcycle);
+      const motorcycleOutput = new Motorcycle(validMotorcycle);
 
       const service = new MotorcycleService();
       const result = await service.register(validMotorcycleBody);
 
-      expect(result).to.be.deep.equal(carOutput);
+      expect(result).to.be.deep.equal(motorcycleOutput);
 
       sinon.restore();
     });  
@@ -39,13 +39,29 @@ describe('Para o service Motorcycle', function () {
   });
 
   describe('Para o método getById', function () {
-    it('Deve retornar o carro do id buscado', async function () {
+    it('Deve retornar a moto do id buscado', async function () {
       sinon.stub(Model, 'findById').resolves(validMotorcycle);
 
       const motorcycleOutput = new Motorcycle(validMotorcycle);
 
       const service = new MotorcycleService();
       const result = await service.getById(validId);
+
+      expect(result).to.be.deep.equal(motorcycleOutput);
+
+      sinon.restore();
+    });  
+  });
+
+  describe('Para o método update', function () {
+    it('Deve retornar a moto atualizada', async function () {
+      sinon.stub(Model, 'findById').resolves(validMotorcycle);
+      sinon.stub(Model, 'findByIdAndUpdate').resolves(validMotorcycle);
+
+      const motorcycleOutput = new Motorcycle(validMotorcycle);
+
+      const service = new MotorcycleService();
+      const result = await service.update(validId, validMotorcycleBody);
 
       expect(result).to.be.deep.equal(motorcycleOutput);
 
