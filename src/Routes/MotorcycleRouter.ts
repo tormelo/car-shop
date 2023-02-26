@@ -18,4 +18,9 @@ MotorcycleRouter.post(
   (req, res, next) => new MotorcycleController(req, res, next).register(),
 );
 
+MotorcycleRouter.put(
+  '/:id',
+  (req, res, next) => new MotorcycleController(req, res, next).update(),
+);
+
 export default MotorcycleRouter;
