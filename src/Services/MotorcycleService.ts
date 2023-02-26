@@ -1,4 +1,5 @@
 import Motorcycle from '../Domains/Motorcycle';
+import HttpException from '../exceptions/HttpException';
 import IMotorcycle from '../Interfaces/IMotorcycle';
 import MotorcycleODM from '../Models/MotorcycleODM';
 
@@ -12,6 +13,14 @@ class MotorcycleService {
     return null;
   }
 
+  private async findById(id: string) {
+    const motorcycle = await this.motorcycleODM.findById(id);
+
+    if (!motorcycle) throw new HttpException(404, 'Motorcycle not found');
+
+    return motorcycle;
+  }
+
   public async register(motorcycle: IMotorcycle) {
     const newMotorcycle = await this.motorcycleODM.create(motorcycle);
     return this.createMotorcycleDomain(newMotorcycle);
@@ -22,6 +31,11 @@ class MotorcycleService {
     const motorcyclesArray = motorcycles.map((motorcycle) =>
       this.createMotorcycleDomain(motorcycle));
     return motorcyclesArray;
+  }
+
+  public async getById(id: string) {
+    const motorcycle = await this.findById(id);
+    return this.createMotorcycleDomain(motorcycle);
   }
 }
 
