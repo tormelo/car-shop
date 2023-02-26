@@ -18,6 +18,10 @@ abstract class AbstractODM<T> {
     this.model = models[this.modelName] || model(modelName, this.schema);
   }
 
+  private validateId(id: string): void {
+    if (!isValidObjectId(id)) throw new HttpException(422, 'Invalid mongo id');
+  }
+
   public async create(obj: T): Promise<T> {
     return this.model.create({ ...obj });
   }
@@ -27,13 +31,12 @@ abstract class AbstractODM<T> {
   }
 
   public async findById(id: string): Promise<T | null> {
-    if (!isValidObjectId(id)) throw new HttpException(422, 'Invalid mongo id');
+    this.validateId(id);
     return this.model.findById(id);
   }
 
   public async update(id: string, obj: Partial<T>): Promise<T | null> {
-    if (!isValidObjectId(id)) throw new HttpException(422, 'Invalid mongo id');
-
+    this.validateId(id);
     return this.model.findByIdAndUpdate(
       { _id: id },
       { ...obj }, 
