@@ -43,6 +43,16 @@ class CarController {
       this.next(error);
     }
   }
+
+  public async getById() {
+    const { id } = this.req.params;
+    try {
+      const car = await this.service.getById(id);
+      return this.res.status(200).send(car);
+    } catch (error) {
+      this.next(error);
+    }
+  }
 }
 
 export default CarController;
