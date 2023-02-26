@@ -30,6 +30,11 @@ class CarService {
     return this.createCarDomain(updatedCar);
   }
 
+  public async remove(id: string) {
+    await this.findById(id);
+    await this.carODM.delete(id);
+  }
+
   public async getAll() {
     const cars = await this.carODM.find();
     const carsArray = cars.map((car) =>
