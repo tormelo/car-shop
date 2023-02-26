@@ -26,6 +26,16 @@ class MotorcycleService {
     return this.createMotorcycleDomain(newMotorcycle);
   }
 
+  public async update(id: string, motorcycle: IMotorcycle) {
+    await this.motorcycleODM.update(id, motorcycle);
+
+    const updatedMotorcycle = await this.findById(id);
+
+    if (!updatedMotorcycle) throw new HttpException(404, 'Motorcycle not found');
+
+    return this.createMotorcycleDomain(updatedMotorcycle);
+  }
+
   public async getAll() {
     const motorcycles = await this.motorcycleODM.find();
     const motorcyclesArray = motorcycles.map((motorcycle) =>
