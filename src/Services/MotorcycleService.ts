@@ -15,9 +15,7 @@ class MotorcycleService {
 
   private async findById(id: string) {
     const motorcycle = await this.motorcycleODM.findById(id);
-
     if (!motorcycle) throw new HttpException(404, 'Motorcycle not found');
-
     return motorcycle;
   }
 
@@ -28,11 +26,7 @@ class MotorcycleService {
 
   public async update(id: string, motorcycle: IMotorcycle) {
     await this.motorcycleODM.update(id, motorcycle);
-
     const updatedMotorcycle = await this.findById(id);
-
-    if (!updatedMotorcycle) throw new HttpException(404, 'Motorcycle not found');
-
     return this.createMotorcycleDomain(updatedMotorcycle);
   }
 
