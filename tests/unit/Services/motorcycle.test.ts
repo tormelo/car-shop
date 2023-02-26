@@ -3,7 +3,11 @@ import sinon from 'sinon';
 import { Model } from 'mongoose';
 import MotorcycleService from '../../../src/Services/MotorcycleService';
 import Motorcycle from '../../../src/Domains/Motorcycle';
-import { motorcycleList, validMotorcycle, validMotorcycleBody } from '../../mocks/motorcyclesMock';
+import { 
+  motorcycleList, 
+  validMotorcycle, 
+  validMotorcycleBody } from '../../mocks/motorcyclesMock';
+import { validId } from '../../mocks/carsMock';
 
 describe('Para o service Motorcycle', function () {
   describe('Para o método register', function () {
@@ -29,6 +33,21 @@ describe('Para o service Motorcycle', function () {
       const result = await service.getAll();
 
       expect(result).to.be.deep.equal(motorcycleList);
+
+      sinon.restore();
+    });  
+  });
+
+  describe('Para o método getById', function () {
+    it('Deve retornar o carro do id buscado', async function () {
+      sinon.stub(Model, 'findById').resolves(validMotorcycle);
+
+      const motorcycleOutput = new Motorcycle(validMotorcycle);
+
+      const service = new MotorcycleService();
+      const result = await service.getById(validId);
+
+      expect(result).to.be.deep.equal(motorcycleOutput);
 
       sinon.restore();
     });  
