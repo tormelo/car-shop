@@ -34,6 +34,15 @@ class MotorcycleController {
       this.next(error);
     }
   }
+
+  public async getAll() {
+    try {
+      const motorcycles = await this.service.getAll();
+      return this.res.status(200).send(motorcycles);
+    } catch (error) {
+      this.next(error);
+    }
+  }
 }
 
 export default MotorcycleController;
