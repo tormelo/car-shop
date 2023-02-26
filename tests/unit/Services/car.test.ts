@@ -68,4 +68,18 @@ describe('Para o service Car', function () {
       sinon.restore();
     });  
   });
+
+  describe('Para o método delete', function () {
+    it('Deve chamar o método findByIdAndDelete do model de carros', async function () {
+      sinon.stub(Model, 'findById').resolves(validCar);
+      const stub = sinon.stub(Model, 'findByIdAndDelete').resolves();
+  
+      const service = new CarService();
+      await service.remove(validId);
+  
+      expect(stub.calledWith(validId)).to.equal(true);
+  
+      sinon.restore();
+    });  
+  });
 });
