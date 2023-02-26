@@ -43,6 +43,16 @@ class MotorcycleController {
       this.next(error);
     }
   }
+
+  public async getById() {
+    const { id } = this.req.params;
+    try {
+      const motorcycle = await this.service.getById(id);
+      return this.res.status(200).send(motorcycle);
+    } catch (error) {
+      this.next(error);
+    }
+  }
 }
 
 export default MotorcycleController;
