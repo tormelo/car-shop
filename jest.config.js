@@ -2,9 +2,9 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  rootDir: './__tests__',
-  setupFilesAfterEnv: ['./setup.js'],
-  testSequencer: './testSequencer.js',
+  rootDir: './tests',
+  // setupFilesAfterEnv: ['./setup.js'],
+  // testSequencer: './testSequencer.js',
   modulePathIgnorePatterns: [
     '<rootDir>/utils',
     '<rootDir>/sources',
